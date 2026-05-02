@@ -67,7 +67,7 @@ export default async function handler(req, res) {
     res.json({ 
       code: 500, 
       msg: '服务器错误', 
-      detail: e.message   // 方便你看到具体错误
+      detail: e.message 
     });
   }
 }
