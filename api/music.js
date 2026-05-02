@@ -18,15 +18,12 @@ export default async function handler(req, res) {
 
     const songId = song.id;
     const title = song.name;
-    const singer = song.artists.map(a => a.name).join('/');
+    const singer = song.artists?.map(a => a.name).join('/') || '';
+
     const albumId = song.album.id;
 
-    const albumRes = await fetch(
-      `https://music.163.com/api/album/${albumId}`,
-      { headers: { Cookie: cookie, Referer: 'https://music.163.com/' } }
-    );
-    const albumData = await albumRes.json();
-    const cover = albumData?.album?.picUrl || '';
+    const cover = song.album?.picUrl || `https://p2.music.126.net/${albumId}.jpg` || '';
+
 
     const urlRes = await fetch(
       `https://music.163.com/api/song/enhance/player/url?ids=[${songId}]&br=320000`,
